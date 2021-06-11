@@ -1,0 +1,44 @@
+$pip install numpy
+$pip install matplotlib.pyplot
+
+import math as m
+import numpy as np
+import matplotlib.pyplot as plt
+
+elements = {1:"H", 4:"He", 7:"Li", 9:"Be", 11:"B", 12:"C", 14:"N", 16:"O", 19:"F",
+            20:"Ne", 22:"Na", 24:"Mg", 27:"Al", 28:"Si", 31:"P", 32:"S", 35:"Cl",
+            40:"Ar", 39:"K", 40:"Ca", 45:"Sc", 48:"Ti", 51:"V", 52:"Cr", 55:"Mn",
+            56:"Fe", 59:"Co", 58:"Ni", 64:"Cu", 65:"Zn", 70:"Ga", 73:"Ge", 75:"As",
+            79:"Se", 80:"Br", 84:"Kr", 85:"Rb", 88:"Sr", 89:"Y", 91:"Zr", 93:"Nb",
+            96:"Mo", 99:"Tc", 101:"Ru", 103:"Rh", 106:"Pd", 108:"Ag", 112:"Cd", 115:"In",
+            119:"Sn", 122:"Sb", 128:"Te", 127:"I", 131:"Xe", 133:"Cs", 137:"Ba", 139:"La",
+            140:"Ce", 141:"Pr", 144:"Nd", 147:"Pm", 150:"Sm", 152:"Eu", 157:"Gd", 159:"Tb",     #all elements that we are discovered for
+            162:"Dy", 165:"Ho", 167:"Er", 169:"Tm", 173:"Yb", 175:"Lu", 178:"Hf", 181:"Ta",     #1.06.2021
+            184:"W", 186:"Re", 190:"Os", 192:"Ir", 195:"Pt", 197:"Au", 201:"Hg", 204:"Tl",
+            207:"Pb", 209:"Bi", 211:"Po", 210:"At", 222:"Rn", 223:"Fr", 226:"Ra",
+            232:"Th", 231:"Pa", 238:"U", 237:"Np", 244:"Pu", 243:"Am", 247:"Cm", 248:"Bk",
+            252:"Cf", 254:"Es", 257:"Fm", 258:"Md", 255:"No", 256:"Lr", 261:"Rf",
+            262:"Db", 263:"Sg", 264:"Bh", 265:"Hs", 266:"Mt", 271:"Ds", 272:"Rg",
+            285:"Cn", 286:"Nh", 287:"Fl", 288:"Mc", 289:"Lv", 290:"Ts", 294:"Og"}
+
+el = int(input("Enter the molar mass of gas molecules (round to the nearest whole value): "))
+el_st = elements.get(el)                                                                #new str-type with molar mass of each element
+T = int(input("Enter the gas temperature (in Kelvin): "))
+M = el * 10**-3                                                                         #molar mass = element*10^-3
+R = 8.31
+
+molecular_velocity = np.arange(0, 2500, 0.001)
+V = molecular_velocity
+maksvell_formilar = 4*m.pi * ((M/(2*m.pi*R*T))**(3/2)) * m.e**-(M*(V**2)/(2*R*T)) * V**2  # Maxvell_distribution formular
+
+
+fig, ax = plt.subplots(figsize=(10,7))
+x = molecular_velocity
+y = maksvell_formilar
+
+ax.grid()
+ax.set_title("Maxwell–Boltzmann distribution for element - " + el_st + '\n')
+ax.set_xlabel("Velocity of molecules (m/s)")
+ax.set_ylabel("Probability")
+ax.plot(x, y, color = 'red', label = "T")
+plt.show()
